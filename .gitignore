@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- MY CUSTOM RULES --
+#project related
+__pycache__/
+.venv/
+# Vercel Cache Folder
+.vercel/
