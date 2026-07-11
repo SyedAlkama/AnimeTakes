@@ -8,7 +8,7 @@ from authlib.integrations.flask_client import OAuth
 from jikanpy import AioJikan
 
 app = Flask(__name__)
-app.secret_key = 'alkamaisanigga'
+app.secret_key = os.environ.get("FLASK_KEY")
 
 # For Google Auth (The implemnation was learnt from youtube tutorials)
 oauth= OAuth(app)
