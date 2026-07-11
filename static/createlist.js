@@ -86,16 +86,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to search when button is clicked
   document.getElementById("searchitems").addEventListener("click", async function (e) {
-      document.getElementById("searchitems").disabled = true;
       e.preventDefault();
-      const spinner = document.getElementById("loadingspinner");
-      spinner.classList.toggle("d-none");
       // Get the data entered
       const template = document.getElementById("template").value;
       const query = document.getElementById("query").value;
       if(query.trim().length === 0){
         return;
       }
+      // Start the spinner 
+      document.getElementById("searchitems").disabled = true;
+      const spinner = document.getElementById("loadingspinner");
+      spinner.classList.toggle("d-none");
       // Empty the itempool if it has anything
       itempool.innerHTML = "";
 
