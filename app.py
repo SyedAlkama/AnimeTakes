@@ -12,9 +12,6 @@ app.secret_key = os.environ.get("FLASK_KEY")
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['SESSION_COOKIE_SECURE'] = True 
 
-# Tell Flask it is behind a proxy (Vercel)
-app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
-
 # For Google Auth (The implemnation was learnt from youtube tutorials)
 oauth= OAuth(app)
 google = oauth.register(
