@@ -35,8 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(tierdata),
     }).then((resp) => {
-      document.getElementById("subs-btn").disabled = false;
-      document.getElementById("subs-btn").textContent ="Submit";
       window.location.href = resp.url;
     });
   });
