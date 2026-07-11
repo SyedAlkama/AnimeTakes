@@ -5,9 +5,9 @@
 This is my final project for CS50. It's a web app that lets people create Tierlists related to anime and share them with their friends and other people, so they can make their own version of that Tierlist. But the core functionality is the ratings that are calculated based on how similarly other people create that Tierlist, called the ***Similarity Score***.
 ---
 ### Key Feautures:
-* **Create and Share:** People can create Tierlists about Anime, Characters, and Manga. And also share it by using the * *Copy link and share* * button.
-* **Compare your own version:** When you open the link, you can choose to * *reveal the tierlist* *, and you can also * *Create your own version* * with the same items the original had.
-* **Score and Ratings:** Once people create their own version they get a * *Similarity Score* *, based on how similar they are to the orignal. And the overall tierlist also gets a * *Rating* * based on the averages of all scores.
+* **Create and Share:** People can create Tierlists about Anime, Characters, and Manga. And also share it by using the *Copy link and share* button.
+* **Compare your own version:** When you open the link, you can choose to *reveal the tierlist*, and you can also *Create your own version* with the same items the original had.
+* **Score and Ratings:** Once people create their own version they get a *Similarity Score*, based on how similar they are to the orignal. And the overall tierlist also gets a *Rating* based on the averages of all scores.
 * **Comments:** After you get the score, you can choose to add a comment to that tierlist about your opinions on it.
 ---
 ### Technologies used:
