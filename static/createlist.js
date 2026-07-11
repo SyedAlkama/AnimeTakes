@@ -93,6 +93,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Get the data entered
       const template = document.getElementById("template").value;
       const query = document.getElementById("query").value;
+      if(query.trim().length === 0){
+        return;
+      }
       // Empty the itempool if it has anything
       itempool.innerHTML = "";
 
