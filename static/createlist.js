@@ -237,4 +237,4 @@ document.getElementById("createListBtn").addEventListener("click",function() {
   }).then((resp) => {
     window.location.href = resp.url;
   });
-}
+});
