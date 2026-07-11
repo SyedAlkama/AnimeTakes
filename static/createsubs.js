@@ -66,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
       forceFallback: true,
       fallbackClass: "sortable-fallback",
       scrollSensitivity: 100,
+      scrollSpeed:25,
+      forceAutoScrollFallback: true,
 
       // When drag disable the tooltip, When placed enable it again
       onStart: function (evt) {
@@ -103,8 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
     forceFallback: true,
     fallbackClass: "sortable-fallback",
     scrollSensitivity: 100,
+    scrollSpeed:25,
+    forceAutoScrollFallback: true,
 
     onStart: function (evt) {
+      countelements();
       const item = evt.item;
       const tooltip = bootstrap.Tooltip.getInstance(item);
 
