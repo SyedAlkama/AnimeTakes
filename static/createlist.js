@@ -235,8 +235,6 @@ document.getElementById("createListBtn").addEventListener("click",function() {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(tierdata),
   }).then((resp) => {
-    document.getElementById("createListBtn").disabled = false;
-    document.getElementById("createListBtn").textContent = "Submit";
     window.location.href = resp.url;
   });
 }
