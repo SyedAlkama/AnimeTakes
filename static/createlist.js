@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to search when button is clicked
   document.getElementById("searchitems").addEventListener("click", async function (e) {
+      document.getElementById("searchitems").disabled = true;
       e.preventDefault();
       const spinner = document.getElementById("loadingspinner");
       spinner.classList.toggle("d-none");
@@ -147,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const tooltipList = [...tooltipTriggerList].map(
           (el) => new bootstrap.Tooltip(el),
         );
+        document.getElementById("searchitems").disabled = false;
       } catch (error) {
         // If any error happens during the above block, show the error
         console.error("cant fetch data", error);
@@ -170,9 +172,9 @@ document.addEventListener("DOMContentLoaded", () => {
       warning_modal = document.getElementById("warning-modal");
       submit_modal = document.getElementById("submit-modal");
       let allinone = false;
-      if (count < 2) {
+      if (count < 4) {
         document.getElementById("exampleModalLabel").innerHTML =
-          "You need atleast two element to submit!";
+          "You need atleast four element to submit!";
         bootstrap.Modal.getOrCreateInstance(warning_modal).toggle();
       } else if (document.getElementById("inputbox").value == "") {
         document.getElementById("exampleModalLabel").innerHTML =
