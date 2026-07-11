@@ -105,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollSensitivity: 100,
 
     onStart: function (evt) {
-      countelements();
       const item = evt.item;
       const tooltip = bootstrap.Tooltip.getInstance(item);
 
@@ -115,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     onEnd: function (evt) {
+      countelements();
       const item = evt.item;
       const tooltip = bootstrap.Tooltip.getInstance(item);
 
