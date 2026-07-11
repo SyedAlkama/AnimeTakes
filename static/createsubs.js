@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("subs-btn").addEventListener("click", function () {
+    document.getElementById("subs-btn").disabled = true;
+    document.getElementById("subs-btn").textContent ="Processing..";
     username = document.getElementById("namebox").value;
     submit_btn = document.getElementById("subs-btn");
     list_id = submit_btn.getAttribute("data-table");
@@ -33,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(tierdata),
     }).then((resp) => {
+      document.getElementById("subs-btn").disabled = false;
+      document.getElementById("subs-btn").textContent ="Submit";
       window.location.href = resp.url;
     });
   });
