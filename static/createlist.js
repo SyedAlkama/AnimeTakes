@@ -201,9 +201,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-document.getElementById("submitListBtn").addEventListener("click",function() {
-  document.getElementById("submitListBtn").disabled = true;
-  document.getElementById("submitListBtn").textContent = "Processing...";
+document.getElementById("createListBtn").addEventListener("click",function() {
+  document.getElementById("createListBtn").disabled = true;
+  document.getElementById("createListBtn").textContent = "Processing...";
   title = document.getElementById("inputbox").value;
   description = document.getElementById("descriptionbox").value;
   category = document.getElementById("template").value;
@@ -235,8 +235,8 @@ document.getElementById("submitListBtn").addEventListener("click",function() {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(tierdata),
   }).then((resp) => {
-    document.getElementById("submitListBtn").disabled = false;
-    document.getElementById("submitListBtn").textContent = "Submit";
+    document.getElementById("createListBtn").disabled = false;
+    document.getElementById("createListBtn").textContent = "Submit";
     window.location.href = resp.url;
   });
 }
