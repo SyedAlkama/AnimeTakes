@@ -100,7 +100,7 @@
                                 </div>
                                 <div>
                                     <h6 class="mb-1 small" style="color: #9ca3af;">Rating</h6>
-                                    <h4 class="mb-0 fw-bold text-white" id="rating">{{subsdata['rating'] | round | int }}</h4>
+                                    <h4 class="mb-0 fw-bold text-white" id="rating">{{subsdata['rating'] | float(0) | round | int }}</h4>
                                 </div>
                             </div>
                             <!-- Dynamic Circular Progress -->
