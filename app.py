@@ -39,7 +39,7 @@ def home():
         )
         
         listsdata = query_db(
-            "SELECT lists.id AS id, title, category, AVG(similarity_score) AS list_rating, COUNT(submissions.id) AS subs FROM lists LEFT JOIN submissions ON lists.id=list_id AND user_id = ? GROUP BY lists.id", 
+            "SELECT lists.id AS id, title, category, AVG(similarity_score) AS list_rating, COUNT(submissions.id) AS subs FROM lists LEFT JOIN submissions ON lists.id=list_id WHERE user_id = ? GROUP BY lists.id", 
             (user_id,)
         )
         
