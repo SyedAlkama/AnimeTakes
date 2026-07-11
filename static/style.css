@@ -1,0 +1,137 @@
+
+
+/* The CSS for this project was mostly copied from Gemini AI from google, but alot of asjustments has been made by me*/ 
+
+/* The box containing the letter (S, A, B, C) */
+.tier-label {
+    width: 100px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border-radius: 8px 0 0 8px; /* Rounded corners on the left */
+}
+
+/* The area where items are dropped */
+.tier-drop {
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-radius: 0 8px 8px 0;
+    /*subtle border to match your screenshot */
+    border: 1px solid #333; 
+    border-left: none;
+}
+
+/* The draggable items */
+.tier-item {
+    width: 80px;
+    height: 110px;
+    object-fit: cover;
+    cursor: grab;
+    transition: transform 0.2s;
+}
+
+.tier-item:active {
+    cursor: grabbing;
+}
+
+.tier-item:hover {
+    transform: scale(1.05);
+}
+
+.item-pool {
+    min-height: 300px; /* Ensure pool doesn't collapse when empty */
+    max-height: 68vh;
+    overflow-y: auto;
+    align-content: flex-start;
+}
+
+
+
+/* Width of the scrollbar */
+.item-pool::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* The track (the background behind the scroll handle) */
+.item-pool::-webkit-scrollbar-track {
+    background: #212529; /* Matches Bootstrap's bg-dark */
+    border-radius: 8px;
+}
+
+/* The thumb (the part you click and drag) */
+.item-pool::-webkit-scrollbar-thumb {
+    background: #6c757d; /* Matches Bootstrap's bg-secondary */
+    border-radius: 8px;
+}
+
+/* Hover effect on the thumb */
+.item-pool::-webkit-scrollbar-thumb:hover {
+    background: #adb5bd; /* Slightly lighter grey when hovered */
+}
+
+@media (max-width: 991px) {
+    .item-pool {
+        max-height: 350px; /* Shorter on mobile so user can still see the tier list above */
+        }
+    .tier-label {
+     width: 60px;
+        font-size: 1.25rem;
+        }
+    }
+
+
+.custom-outline::placeholder {
+      color: #cbbeba !important;
+      opacity: 1; 
+    }
+
+.profile-info {
+    height: 30px;
+}
+
+.ratingCircle:hover {
+    transform: scale(1.10);
+}
+
+.custom-textarea {
+        background-color: #121418 !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: #f8f9fa !important;
+        resize: vertical;
+        transition: all 0.2s ease;
+    }
+.bg-card { background-color: #26292f;; }
+.border-card { border: 1px solid #3a3f4e; }
+
+
+/* Google Button */
+.btn-google {
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 9px;
+    transition: all 0.3s ease;
+}
+.btn-google:hover {
+    color: white;
+}
+
+/* Step Icons Section */
+.step-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+.step-text {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+.step-arrow {
+    font-size: 1.2rem;
+    color: #555b6e;
+}

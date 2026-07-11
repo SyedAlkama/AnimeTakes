@@ -1,0 +1,166 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <!-- Modal -->
+    <div class="modal fade" id="createconfirm" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">For what would you like to create the list?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <form method="GET" action="/createlist">
+                        <div class="modal-body">
+                            <input type="radio" class="btn-check" name="option" id="showsbox" autocomplete="off" value="anime" checked>
+                            <label class="btn btn-dark" for="showsbox">Anime</label>
+
+                            <input type="radio" class="btn-check" name="option" id="charcterbox" value = "characters" autocomplete="off">
+                            <label class="btn btn-dark" for="charcterbox">Characters</label>
+
+                            <input type="radio" class="btn-check" name="option" id="mangabox" value = "manga" autocomplete="off">
+                            <label class="btn btn-dark" for="mangabox">Manga</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Yes! Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category,message in messages %}
+                <div class="alert alert-{{category}} alert-dismissible fade show">{{message}}
+                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="container pb-5">
+       <div class="p-3 p-md-4 rounded-4 shadow-lg" style="background-color: #1e2126; border: 1px solid rgba(255,255,255,0.05);">
+
+            <!-- Profile Banner -->
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between p-4 rounded-3 mb-4 border" 
+                 style="border-color: rgba(255,255,255,0.1) !important; background: linear-gradient(rgba(30,33,38,0.7), rgba(30,33,38,0.85)), url('../static/animebackground.png') center/cover;">
+                <div class="d-flex align-items-center gap-3 mb-3 mb-md-0">
+                    <!-- Avatar -->
+                    <img src="{{userdata['userimg']}}" class="rounded-circle d-flex align-items-center justify-content-center shadow-lg" style="width: 70px; height: 70px;  border: 2px solid #cbd5e1;">
+                    <div>
+                        <h3 class="mb-0 fw-bold text-white" id="username">{{userdata['username']}}</h3>
+                        <form id="changeform" action="/changename" method="POST" class="d-none">
+                            <input name="username" value="{{userdata['username']}}" placeholder="Change your name" class="form-control">
+                            <button type="submit" class="btn btn-outline-light btn-sm rounded-2 px-2 mx-2">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <button class="btn btn-outline-light btn-sm rounded-2 px-3  border-secondary" onclick="hideStuff()"><i class="bi bi-sliders me-1"></i> Change Username</button>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="row g-3 mb-5">
+                <!-- Tierlists Stat -->
+                <div class="col-12 col-md-4">
+                    <div class="card h-100 bg-transparent border rounded-3" style="border-color: rgba(255,255,255,0.1) !important;">
+                        <div class="card-body d-flex align-items-center gap-3 border-start border-4 border-danger rounded-start p-3" style="background-color: #26292f;">
+                            <div class="rounded bg-danger bg-opacity-10 text-danger p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                <i class="bi bi-list-ul fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1 small" style="color: #9ca3af;">Tierlists</h6>
+                                <h4 class="mb-0 fw-bold text-white">{{ totallist['total'] }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Users Answered Stat -->
+                <div class="col-12 col-md-4">
+                    <div class="card h-100 bg-transparent border rounded-3" style="border-color: rgba(255,255,255,0.1) !important;">
+                        <div class="card-body d-flex align-items-center gap-3 border-start border-4 border-warning rounded-start p-3" style="background-color: #26292f;">
+                            <div class="rounded bg-warning bg-opacity-10 text-warning p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                <i class="bi bi-people-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1 small" style="color: #9ca3af;">People Reached</h6>
+                                <h4 class="mb-0 fw-bold text-white">{{subsdata['subs']}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Rating Stat -->
+                <div class="col-12 col-md-4">
+                    <div class="card h-100 bg-transparent border rounded-3" style="border-color: rgba(255,255,255,0.1) !important;">
+                        <div class="card-body d-flex align-items-center justify-content-between border-start border-4 border-success rounded-start p-3" style="background-color: #26292f;">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded bg-success bg-opacity-10 text-success p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                    <i class="bi bi-trophy-fill fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1 small" style="color: #9ca3af;">Rating</h6>
+                                    <h4 class="mb-0 fw-bold text-white" id="rating">{{subsdata['rating'] | round | int }}</h4>
+                                </div>
+                            </div>
+                            <!-- Dynamic Circular Progress -->
+                            <span class="d-inline-block ratingCircle" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="LETS SEE...." id="rating_popover">
+                                <div id="rating-circle" class="d-flex justify-content-center align-items-center rounded-circle" 
+                                    style="width: 45px; height: 45px; background: conic-gradient(#198754 67%, rgba(255,255,255,0.1) 0);">
+                                    <!-- Inner circle to create the donut hole -->
+                                    <div class="rounded-circle" style="width: 35px; height: 35px; background-color: #26292f;"></div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tierlists Section Header -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold mb-0 text-white">Your Tierlists:</h4>
+                <button class="btn btn-primary btn-sm rounded-2 px-3 fw-medium" data-bs-toggle="modal" data-bs-target="#createconfirm"><i class="bi bi-plus-lg me-1"></i>Create</button>
+            </div>
+
+            <!-- Tierlists Grid -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3" style="overflow-y: auto; flex-grow: 1;">
+
+                {% for list in listsdata %}
+                <!-- Card  -->
+                <div class="col">
+                    <div class="card h-100 border-0 position-relative overflow-hidden shadow-sm bg-transparent rounded-3">
+                        <!-- Overlay & Content -->
+                        <div class="card-body position-relative z-1 d-flex justify-content-between align-items-start" style="background-color: #26292f;">
+                           
+                            <div class="d-flex flex-column flex-grow-1 w-100 pe-3 h-100">
+                                <h6 class="fw-bold mb-1" style="color: #9ca3af;">{{ list['title'] }}</h6>
+                                
+                                <p class="small mb-1 text-secondary">Category: {{ list['category'] }}</p>
+                                <p class="small mb-1 text-secondary">Rating: {{ list['list_rating'] | float(0) | round | int }}</p>
+                                <p class="small mb-1 text-secondary">People Reached: {{ list['subs'] | float(0) | round | int }}</p>
+                                <a href="/view?list={{list['id']}}" class="text-decoration-none small mb-4 pb-2 border-bottom border-secondary border-opacity-25 d-inline-block w-auto" style="color: #5c88d4;">Check it out! <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+                                <div class="mt-auto d-flex gap-2">
+                                    <button class="btn btn-primary btn-sm rounded-2 flex-grow-1" type="button" data-link="http://127.0.0.1:5000/view?list={{list['id']}}" onclick="copylink(this)"><i class="bi bi-link-45deg"></i> Copy link to share!</button>
+                                </div>
+                            </div>
+                             <!-- Dynamic Circular Progress -->
+                            <span class="d-inline-block ratingCircle h-auto" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="LETS SEE...." name="comment-popover">
+                                <div name="comment-rating" data-bs-rating="{{list['list_rating']}}"class="d-flex justify-content-center align-items-center rounded-circle" 
+                                    style="width: 45px; height: 45px; background: conic-gradient(#198754 0%, rgba(255,255,255,0.1) 0);">
+                                    <!-- Inner circle to create the donut hole -->
+                                    <div class="rounded-circle" style="width: 35px; height: 35px; background-color: #26292f;"></div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../static/index.js"></script>
+{% endblock %}

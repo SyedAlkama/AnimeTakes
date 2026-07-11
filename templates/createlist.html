@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block title %}Create your list!{% endblock %}
+
+{% block body %}
+    <!-- For warning for too many elements-->
+    <div class="modal fade" id="warning-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- For Submitting the list -->
+    <div class="modal fade" id="submit-modal" tabindex="-1" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-white">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-white" id="exampleLabel">Do you want to submit it?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body vh-25 bg-dark text-white mb-2">
+                Add a description (Optional)
+                <textarea class="w-100 custom-textarea mt-2" placeholder="Description......." maxlength="650 " id="descriptionbox"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="create_list()">Submit!!</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid container-xl pb-5">
+        <div class="row g-4">
+
+            <div class="col-12 col-lg-8">
+                <!-- Back Button -->
+                    <a href="/" class="btn btn-sm btn-outline-secondary text-light mb-3 rounded-3 border-opacity-25" style="border-color: rgba(255,255,255,0.2);">
+                        <i class="bi bi-arrow-left me-1"></i> <span class="d-none d-sm-inline">Back to Dashboard</span><span class="d-inline d-sm-none">Back</span>
+                    </a>
+                <!-- Title Bar -->
+                <div class="input-group mb-2 shadow-sm">
+                    <input type="text" class="form-control py-2" placeholder="ENTER THE TITLE !!!"  id="inputbox" minlength="1" maxlength="110"  autocomplete="off" required>
+                    <button class="btn btn-dark border border-secondary border-opacity-25 px-4" type="button" id="submit-button">Submit</button>
+                </div>
+
+                <!-- Counter -->
+                <h3 class="fw-bold mb-3 text-light" id="counter">0 / 30</h3>
+                <!-- The tierlist area -->
+                <div class="d-flex flex-column">
+                    <div class="tier-row d-flex mb-2">
+                        <div class="tier-label text-dark fw-bold" style="background-color: #ff7f7f;">S</div>
+                        <div class="tier-drop flex-grow-1 bg-secondary bg-opacity-25 p-2" id="S"></div>
+                    </div>
+                    <div class="tier-row d-flex mb-2">
+                        <div class="tier-label text-dark fw-bold" style="background-color: #ffbf7f;">A</div>
+                        <div class="tier-drop flex-grow-1 bg-secondary bg-opacity-25 p-2" id="A"></div>
+                    </div>
+                    <div class="tier-row d-flex mb-2">
+                        <div class="tier-label text-dark fw-bold" style="background-color: #ddff7f;">B</div>
+                        <div class="tier-drop flex-grow-1 bg-secondary bg-opacity-25 p-2" id="B"></div>
+                    </div>
+                    <div class="tier-row d-flex mb-2">
+                        <div class="tier-label text-dark fw-bold" style="background-color: #a1ff7f;">C</div>
+                        <div class="tier-drop flex-grow-1 bg-secondary bg-opacity-25 p-2" id="C"></div>
+                    </div>
+                    <div class="tier-row d-flex mb-2">
+                        <div class="tier-label text-dark fw-bold" style="background-color: #83ff7f;">D</div>
+                        <div class="tier-drop flex-grow-1 bg-secondary bg-opacity-25 p-2" id="D"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Item pool area -->
+            <div class="col-12 col-lg-4">
+                <div class="sticky-top">
+                    <div class="p-3 rounded-4 shadow-sm" style="background-color: #1e2126; border: 1px solid rgba(255,255,255,0.05);">
+                        <h4 class="fw-bold mb-3 text-white">All {{category}}:</h4>
+                        <!-- Search Bar -->
+                            <div class="input-group mb-3">
+                                <!-- Notice the slightly blue tint for the search background as seen in the prompt image -->
+                                <input type="hidden" name="template" id="template" value="{{category}}">
+                                <input type="search" class="form-control rounded" placeholder="Search" style="background-color: #edf2f7; color: #121418;" name="query" id="query">
+                                <button class="btn btn-outline-success" id="searchitems" type="button" style="--bs-btn-color: #2b8a3e; --bs-btn-border-color: #2b8a3e;">Search</button>
+                            </div>
+                        <div class="item-sidebar p-3 rounded"  style="background-color: #1e2126;">
+                            
+                            <!-- Dyanamically filled with JS through json -->
+                            <div class="d-flex align-items-center justify-content-center w-100 h-100">
+                                <div class="spinner-border text-primary d-none" id="loadingspinner">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                            <div class="item-pool d-flex flex-wrap gap-2" id="item-pool"> 
+                                   
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/createlist.js"></script>
+{% endblock %}

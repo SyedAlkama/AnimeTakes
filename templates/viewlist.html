@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+
+{% block title %}View Tierlist{% endblock %}
+
+{% block body %}
+    <div class="container pb-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8"">
+                <div class="p-sm-4 p-3 p-md-5 rounded-4 shadow-lg" style="background-color: #1e2126; border: 1px solid rgba(255,255,255,0.05);">
+                    {% if session['user_id'] %}
+                    <!-- Back Button -->
+                    <a href="/" class="btn btn-sm btn-outline-secondary text-light mb-4 rounded-3 border-opacity-25" style="border-color: rgba(255,255,255,0.2);">
+                        <i class="bi bi-arrow-left me-1"></i> <span class="d-none d-sm-inline">Back to your dashboard!</span><span class="d-inline d-sm-none">Back</span>
+                    </a>
+                    {% endif %}
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <img src="{{userdata['userimg']}}" class="border rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; ">
+                        <h4 class="mb-0 fw-bold text-white fs-5 fs-md-4 text-truncate" id="username">{{userdata['username']}}</h4>
+                    </div>
+                    <!-- Dynamic Circular Progress -->
+                    <span class="d-inline-block ratingCircle float-end mr-2" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="LETS SEE...." id="listCircle">
+                        <div name="rating-circle" data-bs-rating="{{listinfo['rating'] |float(0)| round | int }}"class="d-flex justify-content-center align-items-center rounded-circle" 
+                            style="width: 45px; height: 45px; background: conic-gradient(#198754 100%, rgba(255,255,255,0.1) 0);">
+                            <!-- Inner circle to create the donut hole -->
+                            <div class="rounded-circle" style="width: 35px; height: 35px; background-color: #26292f;"></div>
+                        </div>
+                    </span>
+                    <h2 class="display-6 fw-bold mb-1 text-white text-break" style="text-shadow: 0 2px 10px rgba(255,255,255,0.1);">{{listdata['title']}}</h2>
+                    <p class="fs-6 fs-md-5 mb-1 text-white fw-bold" style="opacity: 0.9;">People Reached: <span class="text-warning">{{listinfo['subs']}}</span></p>
+                    <p class="fs-5 fs-md-5 mb-4 text-white fw-bold" style="opacity: 0.9;">Rating: <span class="text-warning">{{listinfo['rating'] |float(0)| round | int }}</span></p>  
+                    <p class="fs-6 fs-md-5 mb-4 text-warning" style="opacity: 0.9;">{{listdata['description']}}</p> 
+                    <div class="tierlist-placeholder rounded-4 mb-4 overflow-hidden position-relative shadow w-100" style="border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="filter: blur(30px);" class=" w-100 h-100" id="tierlist">
+                            <div class="tier-row d-flex mb-2">
+                                <div class="tier-label text-dark fw-bold" style="background-color: #ff7f7f;">S</div>
+                                <div class="tier-drop flex-grow-1 bg-secondary bg-opacity-25 p-2" id="S">
+                                    {%for item in tierlist["S"] %}
+                                    <div id="{{item['mal_id']}}" data-bs-toggle="tooltip" data-bs-title="{{item['name']}}">
+                                        <img src="{{item['img']}}" class="tier-item rounded">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="tier-row d-flex mb-2">
+                                <div class="tier-label text-dark fw-bold" style="background-color: #ffbf7f;">A</div>
+                                <div class="tier-drop flex-grow-1 bg-secondary bg-opacity-25 p-2" id="A">
+                                    {%for item in tierlist["A"] %}
+                                    <div id="{{item['mal_id']}}" data-bs-toggle="tooltip" data-bs-title="{{item['name']}}">
+                                        <img src="{{item['img']}}" class="tier-item rounded">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="tier-row d-flex mb-2">
+                                <div class="tier-label text-dark fw-bold" style="background-color: #ddff7f;">B</div>
+                                <div class="tier-drop flex-grow-1 bg-secondary bg-opacity-25 p-2" id="B">
+                                    {%for item in tierlist["B"] %}
+                                    <div id="{{item['mal_id']}}" data-bs-toggle="tooltip" data-bs-title="{{item['name']}}">
+                                        <img src="{{item['img']}}" class="tier-item rounded">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="tier-row d-flex mb-2">
+                                <div class="tier-label text-dark fw-bold" style="background-color: #a1ff7f;">C</div>
+                                <div class="tier-drop flex-grow-1 bg-secondary bg-opacity-25 p-2" id="C">
+                                    {%for item in tierlist["C"] %}
+                                    <div id="{{item['mal_id']}}" data-bs-toggle="tooltip" data-bs-title="{{item['name']}}">
+                                        <img src="{{item['img']}}" class="tier-item rounded">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="tier-row d-flex">
+                                <div class="tier-label text-dark fw-bold" style="background-color: #83ff7f;">D</div>
+                                <div class="tier-drop flex-grow-1 bg-secondary bg-opacity-25 p-2" id="D">
+                                    {%for item in tierlist["D"] %}
+                                    <div id="{{item['mal_id']}}" data-bs-toggle="tooltip" data-bs-title="{{item['name']}}">
+                                        <img src="{{item['img']}}" class="tier-item rounded">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex flex-column gap-2 mb-5">
+                        <button class="btn w-100 fw-bold py-3 rounded-3 text-white shadow-sm btn-success" style="letter-spacing: 0.5px;"  id="reveal">
+                            REVEAL THE LIST!!!!
+                        </button>
+                        <form action="/createsubs" method="GET">
+                            <input type="hidden" name="list_id" value="{{listdata['id']}}">
+                            <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 shadow-sm" id="compare">
+                                Compare it with your own!
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <h5 class="fw-bold mb-3 text-white">Comments:</h5>
+                    <!-- Scrollable Comments Container -->
+                    <div class="custom-scrollbar pe-1 pe-md-2 all-comments" style="max-height: 400px; overflow-y: auto; overflow-x: hidden;">
+                        {% for comment in commentdata %}
+                        <!-- Comment Card 1 -->
+                            <div class="card mb-3 border-0 rounded-3 shadow-sm" style="background-color: #26292f;">
+                                <div class="card-body p-3 ">
+                                    <!-- Dynamic Circular Progress -->
+                                    <span class="d-inline-block ratingCircle float-end" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="LETS SEE...." name="rating-popover">
+                                        <div name="rating-circle" data-bs-rating="{{comment['similarity_score']}}"class="d-flex justify-content-center align-items-center rounded-circle" 
+                                            style="width: 45px; height: 45px; background: conic-gradient(#198754 100%, rgba(255,255,255,0.1) 0);">
+                                            <!-- Inner circle to create the donut hole -->
+                                            <div class="rounded-circle" style="width: 35px; height: 35px; background-color: #26292f;"></div>
+                                        </div>
+                                    </span>
+
+                                    <h6 class="text-warning small fw-bold mb-1">{{comment['username']}}</h6>
+                                    {% if comment['comment'] %}<p class="fs-6 fw-medium text-white mb-2 h-5">{{comment['comment']}}</p>{% endif %}
+                                    <p class="fs-6 fs-md-5 mb-0 text-white fw-bold" style="opacity: 0.9;"> Similarity Score: <span class="text-warning">{{comment['similarity_score'] | round | int }}</span></p>  
+                                    <a href="/viewcomment?sub={{comment['id']}}" class="text-decoration-none small text-primary d-inline-flex align-items-center gap-1">
+                                        Look at their Tierlist <i class="bi bi-box-arrow-up-right" style="font-size: 0.75rem;"></i>
+                                    </a>
+                                    
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/viewlist.js"></script>
+
+
+{% endblock %}
