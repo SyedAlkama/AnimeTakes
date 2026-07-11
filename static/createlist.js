@@ -201,13 +201,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-function create_list() {
+document.getElementById("submitListBtn").addEventListener("click",function() {
+  document.getElementById("submitListBtn").disabled = true;
+  document.getElementById("submitListBtn").textContent = "Processing...";
   title = document.getElementById("inputbox").value;
   description = document.getElementById("descriptionbox").value;
   category = document.getElementById("template").value;
 
   if (title.length > 110 || title.length < 1 || description.length > 650) {
-    throw new Error("Looks like someone messed with the HTML");
+    document.body.innerHTML ="<h1> Someone messed with the HTML. Please go back and try again.</h1>";
   }
 
   tiers = document.querySelectorAll(".tier-drop");
@@ -233,6 +235,8 @@ function create_list() {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(tierdata),
   }).then((resp) => {
+    document.getElementById("submitListBtn").disabled = false;
+    document.getElementById("submitListBtn").textContent = "Submit";
     window.location.href = resp.url;
   });
 }
