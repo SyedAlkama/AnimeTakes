@@ -50,10 +50,10 @@ Here is a breakdown of the core files in this project and their specific roles:
 One of the most complex parts of this project was determining how to calculate the similarity between two lists. I chose to implement Kendall's tau formula through the scipy and numpy libraries.
 
 **Handling Drag-and-Drop**
-Implementing the tier-list interface required a lot of frontend logic. I simplified it by using the library Sortable JS and used the info from the docs to do the drag and drop. The CSS for the Tierlist itself was also really difficult, for which I used Gemini AI to teach me how to make it.  
+Implementing the tier-list interface required a lot of frontend logic. I simplified it by using the library Sortable JS and used the info from the docs to do the drag and drop. And the Bootstrap grid system was used to make the interface for the create Tierlist page.  
 
 **Database Structure**
-Initially really simple to use SQLite when I was running it on my computer. But deploying turned out to be really complicated. I used Gemini AI to guide me through the deployment.
+Initially really simple to use SQLite when I was running it on my computer. But deploying turned out to be really complicated. So I used Turso, which is a cloud-based SQLite database, and used AI to teach me the process of integrating it.
 
 **The CSS and design**
 I created a really simple CSS version of this at the start. But I couldn't get it to look good or be mobile-responsive. So I took a lot of code from the Gemini AI that I understood and modified myself to use. 
