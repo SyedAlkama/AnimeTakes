@@ -1,5 +1,5 @@
 # AnimeTakes
-### Video Demo: 
+### Video Demo: https://youtu.be/NvCqhNyghSk?si=QJI2tiJjSz2IprdM
 ### Description:
 
 This is my final project for CS50. It's a web app that lets people create Tierlists related to anime and share them with their friends and other people, so they can make their own version of that Tierlist. But the core functionality is the ratings that are calculated based on how similarly other people create that Tierlist, called the ***Similarity Score***.
