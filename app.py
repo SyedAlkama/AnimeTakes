@@ -163,6 +163,9 @@ async def search():
 @login_required
 def changename():
     newname= request.form.get('username')
+    if not newname.strip():
+        flash("Username can't be empty!","danger")
+        return redirect("/")
     try:
         # Update the username and give the user a confirmation 
         modify_db('UPDATE users SET username = ? WHERE id = ?',(newname,session['user_id'],))
