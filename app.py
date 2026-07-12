@@ -133,7 +133,7 @@ async def search():
         return jsonify("error no search term provided"),400
     # if data is given search it , format it , return it as a json file
     try:
-        async with AioJikan() as aio_jikan:
+        async with AioJikan(selected_base='https://tenrai.org') as aio_jikan:
             sorting_parameters = {'order_by':'popularity','sort':'asc','limit':20}
             if search == 'characters':
                 sorting_parameters["order_by"] = "favorites"
