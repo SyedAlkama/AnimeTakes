@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // When drag disable the tooltip, When placed enable it again
       onStart: function (evt) {
-        countelements();
         const item = evt.item;
         const tooltip = bootstrap.Tooltip.getInstance(item);
 
